@@ -5,9 +5,9 @@ import { Security, LoginCallback } from '@okta/okta-react'
 import Home from './Home'
 
 const config = {
-  issuer: 'https://auth.txcmarkets.com/oauth2/aus25c7uk4hILJGhd357',
+  issuer: process.env.REACT_APP_ISSUER,
   redirectUri: window.location.origin + '/implicit/callback',
-  clientId: '0oa25c6mih0DMK92R357',
+  clientId: process.env.REACT_APP_CLIENT_ID,
   pkce: true,
   scopes: ['openid', 'profile', 'email'],
   disableHttpsCheck: false

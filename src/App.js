@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Security, LoginCallback } from '@okta/okta-react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './Home'
+
+const config = {
+  issuer: 'https://auth.txcmarkets.com/oauth2/aus25c7uk4hILJGhd357',
+  redirectUri: window.location.origin + '/implicit/callback',
+  clientId: '0oa25c6mih0DMK92R357',
+  pkce: true,
+  scopes: ['openid', 'profile', 'email'],
+  disableHttpsCheck: false
 }
 
-export default App;
+const LoginVerify = () => {
+  return (
+    <div>Login verify</div>
+  )
+}
+
+const App = () => {
+  return (
+    <Router>
+      <Security {...config}>
+        <Route path='/' exact={true} component={Home}/>
+        <Route path='/implicit/callback' component={LoginCallback}/>
+        <Route path='/verify' component={LoginVerify}/>
+      </Security>
+    </Router>
+  )
+}
+
+export default App
